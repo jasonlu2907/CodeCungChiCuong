@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rolling String, TopDev code test</title>
+</head>
+<body>
+    <h1>Rolling String, TopDev code test</h1>
+    <script>
+    //     public static String rollingString(String toRoll, List<String> operations) {
+    // // Write your code here
+    //     String res = toRoll;
+    //     String tmp;
+    //     for(String s : operations) {
+    //         tmp ="";
+    //         char[]arr = res.toCharArray();
+
+    //         String[] values = s.split(" ");
+    //         //values[0] = i, values[1] = j, values[2] = ch
+    //         if(values[2].equals("L")) {
+    //             for(int k = Integer.parseInt(values[0]); k <= Integer.parseInt(values[1]); k++) {
+    //                 //res.replace(res.charAt(k), left_roll_character(res.charAt(k)));
+
+    //                 arr[k] = left_roll_character(res.charAt(k));
+    //             }
+
+    //         } else {
+    //             for(int k = Integer.parseInt(values[0]); k <= Integer.parseInt(values[1]); k++) {
+    //                 //res.replace(res.charAt(k), right_roll_character(res.charAt(k)));
+    //                 arr[k] = right_roll_character(res.charAt(k));
+    //             }
+    //         }
+            
+    //         for(int i = 0; i < arr.length;i++){
+    //             tmp = tmp + arr[i];
+    //         }
+
+    //         res = tmp;
+    //     }
+        
+    //     return res;
+    // } 
+
+    // public static char right_roll_character(char c) { 
+    //     /*roll = roll % 26; 
+    //     int character = c - 'a'; 
+
+    //     return (char) ('a' + (character + roll) % 26); */
+    //     char character = c;
+    //     if(c == 'z')
+    //         return 'a';
+    //     character = (char)(c + 1);
+    //     return character;
+    // } 
+
+    // public static char left_roll_character(char c) { 
+    
+    //     char character = c;
+    //     if(c == 'a')
+    //         return 'z';
+    //     character = (char)(c - 1);
+    //     return character;
+    // }
+    function rollingString(s, operations) {
+        let operator = '';
+        
+        for(let i = 0; i < operations.length; i++) {
+            let arrO = operations[i].split(' ').join('');
+            console.log(arrO);
+            operator = arrO[arrO.length - 1];
+            let ind_0 = parseInt(arrO[0], 10), ind_1 = parseInt(arrO[1], 10);
+            if(operator === 'L') {
+                while(ind_0 <= ind_1) {
+                    s = roll(s, ind_0, operator);
+                    ind_0++;
+                }
+            } 
+
+            if(operator === 'R') {
+                while(ind_0 <= ind_1) {
+                    // Đổi thành kí tự luôn rồi gắn vô lại s
+                    s = roll(s, ind_0, operator);
+                    // arrS[ind_0] = ch;
+                    // console.log(ch);
+                    ind_0++;
+                }
+            }
+        }
+        console.log(s);
+    }
+
+    function roll(str, i, oper) {
+        let asciiStr_i = str.charCodeAt(i) , character;
+        if(oper === 'R') { // dịch phải
+            if(asciiStr_i === 122 ) {// z = 122 
+                character = String.fromCharCode(asciiStr_i - 25);
+            } else character = String.fromCharCode(asciiStr_i + 1);
+        } else { // dịch trái
+            if(asciiStr_i === 97 ) {// a = 97 
+                character = String.fromCharCode(asciiStr_i + 25);
+            } else character = String.fromCharCode(asciiStr_i - 1);
+        }
+        const dcmm = str.replace(String.fromCharCode(asciiStr_i), character);
+        // console.log(typeof dcmm);
+        return dcmm;
+    }
+    
+    str = 'abc';
+    operations = ['0 0 L', '2 2 L', '0 2 R'];
+
+    // str.replace(str[0], 'd');
+    rollingString(str, operations);
+    </script>
+</body>
+</html>
+
+
+

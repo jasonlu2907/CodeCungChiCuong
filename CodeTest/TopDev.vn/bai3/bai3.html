@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const numbers = [1, 2, 3, 4, 5, 6];
+        const k = 2;
+
+        console.log(countPairs(numbers, k));
+
+        function countPairs(numbers, k) {
+            // Write your code here
+            let count = 0,
+                prev;
+            numbers.sort((a, b) => a - b);
+            // prev = numbers[0];
+            const max = Math.max(...numbers);
+
+            for (let i = 0; i < numbers.length; i++) {
+                if (numbers[i] + k > max) {
+                    break;
+                }
+
+                if (numbers[i] === numbers[i - 1]) continue;
+
+                for (let j = i + 1; j < numbers.length; j++) {
+                    if (numbers[i] === numbers[j]) continue;
+                    if (numbers[i] + k === numbers[j]) {
+                        count++;
+                        // prev = numbers[j];
+                        break;
+                    }
+                }
+            }
+            return count;
+        }
+    </script>
+</body>
+
+</html>
